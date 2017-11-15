@@ -65,8 +65,10 @@ int main() {
 long long convert(char word[], int length) {
     long long value = 0;
 
-    for (int i = 0; i < length; i++)
-        value = value * 26 + (word[i] - 'A');
+    for (int i = 0; i < length; i++) {
+        int wordMinA = (word[i] - 'A');
+        value = value * 26 + wordMinA;
+    }
 
     return value;
 }
@@ -74,12 +76,20 @@ long long convert(char word[], int length) {
 void printText(long long value, int length) {
     char word[MAX_LEN];
 
-    /*** Fill in this code. Populate the word array by filling in each
-         character, backwards, using the algorithm shown in the program
-         write up.  Remember to to null terminate your string appropriately.
-    ***/
+    int i = MAX_LEN - 1;
+    do {
+        word[i] = (char) (value % 26 + 'A');
+        value /= 26;
+        i--;
+    } while (value != 0);
 
-    printf("%s\n", word);
-
-    return;
+    i++;
+    int word_len = MAX_LEN - i;
+    char sol[word_len + 1];
+    for (int j = 0; j < word_len; j++) {
+        sol[j] = word[i];
+        i++;
+    }
+    sol[word_len] = '\0';
+    printf("%s\n", sol);
 }
